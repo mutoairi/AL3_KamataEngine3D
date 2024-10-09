@@ -3,15 +3,28 @@
 
 
 GameScene::GameScene(){};
-GameScene::~GameScene(){};
-
-
-void GameScene::Initialize(){
+GameScene::~GameScene(){ 
+	delete model_;
+	delete player_;
 
 };
 
-void GameScene::Update(){
 
+void GameScene::Initialize() {
+	dxCommon_ = DirectXCommon::GetInstance();
+	input_ = Input::GetInstance();
+	audio_ = Audio::GetInstance();
+	//texture = TextureManager::Load("white1x1.png");
+	model_ = Model::CreateFromOBJ("block", true);
+	viewProjection_.Initialize();
+	worldTransform_.Initialize();
+	// 自キャラの生成
+	player_ = new Player();
+	player_->Initialize(model_,&viewProjection_);
+}
+
+void GameScene::Update(){
+	player_->Update();
 };
 
 void GameScene::Draw() {
@@ -33,14 +46,16 @@ void GameScene::Draw() {
 
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
-	Model::PreDraw(commandList);
+	KamataEngine::Model::PreDraw(commandList);
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
+	/// 
+player_->Draw();
 	/// </summary>
-
+	
 	// 3Dオブジェクト描画後処理
-	Model::PostDraw();
+	KamataEngine::Model::PostDraw();
 #pragma endregion
 
 #pragma region 前景スプライト描画

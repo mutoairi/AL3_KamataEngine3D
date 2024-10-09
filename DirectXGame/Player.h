@@ -1,16 +1,19 @@
 #pragma once
-#include"3d/WorldTransform.h"
-#include"3d/ObjectColor.h"
-#include"3d/ViewProjection.h"
-#include"3d/Model.h"
+#include<3d/WorldTransform.h>
+#include<3d/ObjectColor.h>
+#include<3d/Model.h>
+#include<3d/Camera.h>
+
 class Player {
 public:
-	void Initialize(Model*model,ViewProjection*viewProjection);
+	void Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewProjection);
 	void Update();
 	void Draw();
 
 	private:
-	ViewProjection* viewProjection_ = nullptr;
-	    Model* model_ = nullptr;
-
+	KamataEngine::Camera* viewProjection_ = nullptr;
+	KamataEngine::Model* model_ = nullptr;
+	KamataEngine::WorldTransform worldTransform_;
+	KamataEngine::ObjectColor objColor = {};
+	
 };

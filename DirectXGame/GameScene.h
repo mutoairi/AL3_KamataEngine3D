@@ -28,6 +28,11 @@ class GameScene {
 	    Input* input_ = nullptr;
 	    Audio* audio_ = nullptr;
 
+		//デバッグカメラ有効
+	    bool isDebugCameraActive_ = false;                                     
+		//デバッグカメラ
+	    DebugCamera* debugCamera_ = nullptr;
+
 		//ゲームシーン用メンバ変数
 	    Player* player_ = nullptr;
 	    Model* model_=nullptr;

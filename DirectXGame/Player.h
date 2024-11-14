@@ -3,6 +3,7 @@
 #include<3d/ObjectColor.h>
 #include<3d/Model.h>
 #include<3d/Camera.h>
+#include<input/Input.h>
 
 class Player {
 public:
@@ -11,6 +12,8 @@ public:
 	void Draw();
 
 	private:
+
+	KamataEngine::Input* input_ = nullptr;
 	KamataEngine::Camera* viewProjection_ = nullptr;
 	KamataEngine::Model* model_ = nullptr;
 	KamataEngine::WorldTransform worldTransform_;

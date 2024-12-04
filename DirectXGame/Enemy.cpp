@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include"base/TextureManager.h"
 #include"myMath.h"
+#include"Player.h"
 
 Enemy::~Enemy()
 {
@@ -17,6 +18,7 @@ void Enemy::Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewPro
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = {0,3,200 };
 	phase_ = Phase::Approach;
+	
 	ApproachInitialize();
 }
 
@@ -101,13 +103,23 @@ void Enemy::Leave()
 
 void Enemy::Fire()
 {
-	
+	assert(player_);
+
 		//弾の速度
 		const float kBulletSpeed =0.7f;
 		KamataEngine::Vector3 velocity(0, 0, kBulletSpeed);
-		//速度ベクトルを自機の向きに合わせて回転させる
-		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
+		//自キャラの座標
+		KamataEngine::Vector3 playerWorldPos = player_->GetWorldPosition();
+		//敵キャラの座標
+		KamataEngine::Vector3 enemyWorldPos = { worldTransform_.matWorld_.m[3][0] ,
+			                                    worldTransform_.matWorld_.m[3][1] ,
+		                                        worldTransform_.matWorld_.m[3][2] };
 
+		KamataEngine::Vector3 differentialV = playerWorldPos - enemyWorldPos;
+		
+		
+		velocity = Normalize(differentialV);
+		velocity* kBulletSpeed;
 		//弾を生成し初期
 		EnemyBullet* newBullet = new EnemyBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_, velocity);

@@ -127,3 +127,14 @@ void Player::Move()
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 }
+
+KamataEngine::Vector3 Player::GetWorldPosition()
+{
+	//ワールド座標を入れる変数
+	KamataEngine::Vector3 worldPos;
+	//ワールド座標を取得
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos;
+}

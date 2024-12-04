@@ -22,7 +22,7 @@ void EnemyBullet::Update()
 		isDead_ = true;
 	}
 	//座標を移動させる
-	worldTransform_.translation_ -= velocity_;
+	worldTransform_.translation_ += velocity_;
 	worldTransform_.UpdateMatrix();
 }
 

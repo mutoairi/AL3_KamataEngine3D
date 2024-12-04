@@ -16,6 +16,8 @@ public:
 	void Rotate();
 	void Attack();
 	void Move();
+	//ワールド座標を取得
+	KamataEngine::Vector3 GetWorldPosition();
 
 private:
 
@@ -25,4 +27,5 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::ObjectColor objColor = {};
 	std::list<PlayerBullet* >bullets_;
+	
 };

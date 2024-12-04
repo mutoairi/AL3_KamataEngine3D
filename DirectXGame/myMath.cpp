@@ -129,3 +129,18 @@ KamataEngine::Vector3 TransformNormal(const KamataEngine::Vector3& v, const Kama
 	};
 	return result;
 }
+float Length(const KamataEngine::Vector3& v) {
+	float  v2 = 0;
+	v2 = sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+
+	return v2;
+}
+
+KamataEngine::Vector3 Normalize(const KamataEngine::Vector3& v) {
+	KamataEngine::Vector3 v2 = { 0 };
+	v2.x = v.x / sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+	v2.y = v.y / sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+	v2.z = v.z / sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+
+	return v2;
+}

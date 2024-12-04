@@ -13,6 +13,7 @@ enum class Phase {
 	Approach,//接近する
 	Leave,//離脱する
 };
+class Player;
 class Enemy
 {
 public:
@@ -24,6 +25,7 @@ public:
 	void Leave();
 	void Fire();
 	void ApproachInitialize();
+	void SetPlayer(Player* player) { player_ = player; }
 	//発射間隔
 	static const int kFireInterval = 60;
 
@@ -40,5 +42,7 @@ private:
 	std::list<EnemyBullet* >bullets_ ;
 	//発射タイマー
 	int32_t shotTimer_ = 0;
+	//自キャラ
+	Player* player_ = nullptr;
 };
 

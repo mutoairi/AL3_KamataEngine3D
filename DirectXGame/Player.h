@@ -5,9 +5,11 @@
 #include<3d/Camera.h>
 #include<input/Input.h>
 #include"PlayerBullet.h"
+#include<list>
 
 class Player {
 public:
+	~Player();
 	void Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewProjection);
 	void Update();
 	void Draw();
@@ -22,5 +24,5 @@ private:
 	KamataEngine::Model* model_ = nullptr;
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::ObjectColor objColor = {};
-	PlayerBullet* bullet_ = nullptr;
+	std::list<PlayerBullet* >bullets_;
 };

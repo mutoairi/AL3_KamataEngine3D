@@ -4,6 +4,13 @@
 #include<imgui.h>
 
 
+Player::~Player()
+{
+	for (PlayerBullet* bullet_ : bullets_) {
+		delete bullet_;
+	}
+}
+
 void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewProjection) {
 	model_ = model;
 	viewProjection_ = viewProjection;
@@ -23,7 +30,7 @@ void Player::Update() {
 	//攻撃処理
 	Attack();
 	//弾更新
-	if (bullet_) {
+	for (PlayerBullet*bullet_:bullets_) {
 		bullet_->Update();
 	}
 	worldTransform_.UpdateMatrix();
@@ -40,7 +47,7 @@ void Player::Update() {
 void Player::Draw() {
 	model_->Draw(worldTransform_, *viewProjection_, &objColor);
 	//弾描画
-	if (bullet_) {
+	for (PlayerBullet* bullet_ : bullets_) {
 		bullet_->Draw(*viewProjection_);
 	}
 }
@@ -62,12 +69,14 @@ void Player::Rotate()
 void Player::Attack()
 {
 	if (input_->TriggerKey(DIK_SPACE)) {
+		
+		
 		//弾を生成し初期
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 
 		//弾を登録する
-		bullet_ = newBullet;
+		bullets_.push_back(newBullet);
 	}
 }
 

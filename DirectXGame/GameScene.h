@@ -3,6 +3,7 @@
 
 #include "Player.h"
 
+
 using namespace KamataEngine;
 
 class GameScene {

@@ -23,6 +23,15 @@ void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewPr
 
 }
 void Player::Update() {
+
+	//デスフラグが立った弾を削除
+	bullets_.remove_if([](PlayerBullet* bullet_) {
+		if (bullet_->IsDead()) {
+			delete bullet_;
+			return true;
+		}
+		return false;
+		});
 	//旋回処理
 	Rotate();
 	//移動処理
@@ -69,11 +78,15 @@ void Player::Rotate()
 void Player::Attack()
 {
 	if (input_->TriggerKey(DIK_SPACE)) {
-		
+		//弾の速度
+		const float kBulletSpeed = 1.0f;
+		KamataEngine::Vector3 velocity(0, 0, kBulletSpeed);
+		//速度ベクトルを自機の向きに合わせて回転させる
+		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 		
 		//弾を生成し初期
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_);
+		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
 
 		//弾を登録する
 		bullets_.push_back(newBullet);

@@ -3,43 +3,42 @@
 
 #include "Player.h"
 
-
 using namespace KamataEngine;
 
 class GameScene {
 
-	public:
+public:
 
-		//ゲームシーン
+	//ゲームシーン
 
-		//コンストラクタ
-	    GameScene();
+	//コンストラクタ
+	GameScene();
 
-		//デストラクタ
-	    ~GameScene();
+	//デストラクタ
+	~GameScene();
 
-		void Initialize();
+	void Initialize();
 
-		void Update();
+	void Update();
 
-	    void Draw();
+	void Draw();
 
-		private:
-	    DirectXCommon* dxCommon_ = nullptr;
-	    Input* input_ = nullptr;
-	    Audio* audio_ = nullptr;
+private:
+	DirectXCommon* dxCommon_ = nullptr;
+	Input* input_ = nullptr;
+	Audio* audio_ = nullptr;
 
-		//デバッグカメラ有効
-	    bool isDebugCameraActive_ = false;                                     
-		//デバッグカメラ
-	    DebugCamera* debugCamera_ = nullptr;
+	//デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
+	//デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
 
-		//ゲームシーン用メンバ変数
-	    Player* player_ = nullptr;
-	    Model* model_=nullptr;
-	    WorldTransform worldTransform_;
-	    Camera viewProjection_;
-	   // uint32_t texture = 0;
+	//ゲームシーン用メンバ変数
+	Player* player_ = nullptr;
+	Model* model_ = nullptr;
+	WorldTransform worldTransform_;
+	Camera viewProjection_;
+	// uint32_t texture = 0;
 
 
 };

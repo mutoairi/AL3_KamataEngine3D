@@ -3,6 +3,7 @@
 
 using namespace KamataEngine;
 
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
@@ -12,8 +13,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Audio* audio = nullptr;
 	AxisIndicator* axisIndicator = nullptr;
 	PrimitiveDrawer* primitiveDrawer = nullptr;
-	GameScene* gameScene = nullptr;
-
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -27,6 +26,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ImGuiの初期化
 	ImGuiManager* imguiManager = ImGuiManager::GetInstance();
 	imguiManager->Initialize(win, dxCommon);
+	GameScene* gameScene = nullptr;
+
+
 
 	// 入力の初期化
 	input = Input::GetInstance();
@@ -57,6 +59,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ゲームシーンの初期化
 	gameScene = new GameScene();
 	gameScene->Initialize();
+
+
 
 	// メインループ
 	while (true) {
@@ -89,6 +93,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// 描画終了
 		dxCommon->PostDraw();
 	}
+
 	// 各種解放
 	delete gameScene;
 	// 3Dモデル解放

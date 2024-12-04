@@ -13,40 +13,20 @@ void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewPr
 	input_ = KamataEngine::Input::GetInstance();
 
 	objColor.Initialize();
-	
+
 }
-void Player::Update() { 
-	//キャラクターの移動ベクトル
-	KamataEngine::Vector3 move = {0, 0, 0};
-
-	//キャラクターの移動の速さ
-	const float kCharacterSpeed = 0.2f;
-
-	//押した方向で移動ベクトル
-	if (input_->PushKey(DIK_LEFT)) {
-		move.x -= kCharacterSpeed;
-	} else if (input_->PushKey(DIK_RIGHT)) {
-		move.x += kCharacterSpeed;
+void Player::Update() {
+	//旋回処理
+	Rotate();
+	//移動処理
+	Move();
+	//攻撃処理
+	Attack();
+	//弾更新
+	if (bullet_) {
+		bullet_->Update();
 	}
-	if (input_->PushKey(DIK_UP)) {
-		move.y += kCharacterSpeed;
-	} else if (input_->PushKey(DIK_DOWN)) {
-		move.y -= kCharacterSpeed;
-	}
-	//移動限界座標
-	const float kMoveLimitX = 30.0f;
-	const float kMoveLimitY = 18.0f;
-
-	
-
-	worldTransform_.translation_ += move;
-
-	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
-	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
-	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
-	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
-	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-	worldTransform_.TransferMatrix();
+	worldTransform_.UpdateMatrix();
 
 
 	//キャラクターの座標を画面表示する処理
@@ -58,5 +38,70 @@ void Player::Update() {
 };
 
 void Player::Draw() {
-	model_->Draw(worldTransform_, *viewProjection_,&objColor); 
+	model_->Draw(worldTransform_, *viewProjection_, &objColor);
+	//弾描画
+	if (bullet_) {
+		bullet_->Draw(*viewProjection_);
+	}
+}
+
+void Player::Rotate()
+{
+	//回転速さ
+	const float kRotSpeed = 0.02f;
+	//押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y -= kRotSpeed;
+	}
+	else if (input_->PushKey(DIK_D)) {
+		worldTransform_.rotation_.y += kRotSpeed;
+	}
+
+}
+
+void Player::Attack()
+{
+	if (input_->TriggerKey(DIK_SPACE)) {
+		//弾を生成し初期
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldTransform_.translation_);
+
+		//弾を登録する
+		bullet_ = newBullet;
+	}
+}
+
+void Player::Move()
+{
+	//キャラクターの移動ベクトル
+	KamataEngine::Vector3 move = { 0, 0, 0 };
+
+	//キャラクターの移動の速さ
+	const float kCharacterSpeed = 0.2f;
+
+	//押した方向で移動ベクトル
+	if (input_->PushKey(DIK_LEFT)) {
+		move.x -= kCharacterSpeed;
+	}
+	else if (input_->PushKey(DIK_RIGHT)) {
+		move.x += kCharacterSpeed;
+	}
+	if (input_->PushKey(DIK_UP)) {
+		move.y += kCharacterSpeed;
+	}
+	else if (input_->PushKey(DIK_DOWN)) {
+		move.y -= kCharacterSpeed;
+	}
+	//移動限界座標
+	const float kMoveLimitX = 30.0f;
+	const float kMoveLimitY = 18.0f;
+
+
+
+	worldTransform_.translation_ += move;
+
+	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
+	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
+	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
+	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 }

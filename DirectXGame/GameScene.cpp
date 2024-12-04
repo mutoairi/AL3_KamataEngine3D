@@ -3,8 +3,8 @@
 
 
 
-GameScene::GameScene(){};
-GameScene::~GameScene(){ 
+GameScene::GameScene() {};
+GameScene::~GameScene() {
 	delete model_;
 	delete player_;
 	delete debugCamera_;
@@ -21,7 +21,7 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	// 自キャラの生成
 	player_ = new Player();
-	player_->Initialize(model_,&viewProjection_);
+	player_->Initialize(model_, &viewProjection_);
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
@@ -30,8 +30,8 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetCamera(&viewProjection_);
 }
 
-void GameScene::Update(){
-	#ifdef _DEBUG
+void GameScene::Update() {
+#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
 		if (isDebugCameraActive_ == true)
 			isDebugCameraActive_ = false;
@@ -39,8 +39,8 @@ void GameScene::Update(){
 			isDebugCameraActive_ = true;
 
 	}
-	
-	#endif
+
+#endif
 	if (isDebugCameraActive_) {
 		// デバッグカメラの更新
 		debugCamera_->Update();
@@ -48,12 +48,13 @@ void GameScene::Update(){
 		viewProjection_.matProjection = debugCamera_->GetCamera().matProjection;
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
-	} else {
+	}
+	else {
 		//ビュープロジェクション行列の更新と転送	
 		viewProjection_.UpdateMatrix();
 	}
 	player_->Update();
-	
+
 };
 
 void GameScene::Draw() {
@@ -80,9 +81,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// 
-player_->Draw();
+	player_->Draw();
 	/// </summary>
-	
+
 	// 3Dオブジェクト描画後処理
 	KamataEngine::Model::PostDraw();
 #pragma endregion

@@ -2,6 +2,7 @@
 #include <KamataEngine.h>
 
 #include "Player.h"
+#include"Enemy.h"
 
 using namespace KamataEngine;
 
@@ -36,6 +37,7 @@ private:
 	//ゲームシーン用メンバ変数
 	Player* player_ = nullptr;
 	Model* model_ = nullptr;
+	Enemy* enemy_ = nullptr;
 	WorldTransform worldTransform_;
 	Camera viewProjection_;
 	// uint32_t texture = 0;

@@ -22,6 +22,9 @@ void GameScene::Initialize() {
 	// 自キャラの生成
 	player_ = new Player();
 	player_->Initialize(model_, &viewProjection_);
+	//敵の生成
+	enemy_ = new Enemy();
+	enemy_->Initialize(model_, &viewProjection_);
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
@@ -54,7 +57,7 @@ void GameScene::Update() {
 		viewProjection_.UpdateMatrix();
 	}
 	player_->Update();
-
+	enemy_->Update();
 };
 
 void GameScene::Draw() {
@@ -82,6 +85,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// 
 	player_->Draw();
+	enemy_->Draw();
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理

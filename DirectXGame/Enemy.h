@@ -5,12 +5,20 @@
 #include<3d/Camera.h>
 #include<input/Input.h>
 
+
+//行動フェーズ
+enum class Phase {
+	Approach,//接近する
+	Leave,//離脱する
+};
 class Enemy
 {
 public:
 	void Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewProjection);
 	void Update();
 	void Draw();
+	void Approach();
+	void Leave();
 	
 
 private:
@@ -21,5 +29,7 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 	//KamataEngine::ObjectColor objColor = {};
 	uint32_t texture_ = 0u;
+	//フェーズ
+	Phase phase_;
 };
 

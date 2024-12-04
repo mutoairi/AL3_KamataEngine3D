@@ -4,6 +4,8 @@
 #include<3d/Model.h>
 #include<3d/Camera.h>
 #include<input/Input.h>
+#include<list>
+#include "EnemyBullet.h"
 
 
 //行動フェーズ
@@ -14,12 +16,16 @@ enum class Phase {
 class Enemy
 {
 public:
+	~Enemy();
 	void Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewProjection);
 	void Update();
 	void Draw();
 	void Approach();
 	void Leave();
-	
+	void Fire();
+	void ApproachInitialize();
+	//発射間隔
+	static const int kFireInterval = 60;
 
 private:
 
@@ -31,5 +37,8 @@ private:
 	uint32_t texture_ = 0u;
 	//フェーズ
 	Phase phase_;
+	std::list<EnemyBullet* >bullets_ ;
+	//発射タイマー
+	int32_t shotTimer_ = 0;
 };
 

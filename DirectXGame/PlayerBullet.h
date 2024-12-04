@@ -3,7 +3,6 @@
 #include<3d/ObjectColor.h>
 #include<3d/Model.h>
 #include<3d/Camera.h>
-#include<input/Input.h>
 #include"math/Vector3.h"
 #include"myMath.h"
 

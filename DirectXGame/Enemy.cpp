@@ -3,7 +3,6 @@
 #include"myMath.h"
 #include"Player.h"
 
-
 Enemy::~Enemy()
 {
 	for (EnemyBullet* bullet_ : bullets_) {
@@ -104,7 +103,7 @@ void Enemy::Leave()
 
 void Enemy::Fire()
 {
-	//assert(player_);
+	assert(player_);
 
 		//弾の速度
 		const float kBulletSpeed =0.7f;

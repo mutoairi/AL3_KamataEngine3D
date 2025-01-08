@@ -1,11 +1,10 @@
 #include "PlayerBullet.h"
 #include"base/TextureManager.h"
 
-
 void PlayerBullet::Initialize(KamataEngine::Model* model, const KamataEngine::Vector3& position, const KamataEngine::Vector3& velocity)
 {
 	//NULLポインタチェック
-	//assert(model);
+	assert(model);
 
 	model_ = model;
 	//テクスチャ読み込み

@@ -58,8 +58,10 @@ void GameScene::Update() {
 		//ビュープロジェクション行列の更新と転送	
 		viewProjection_.UpdateMatrix();
 	}
+	CheckAllCollision();
 	player_->Update();
 	enemy_->Update();
+	
 };
 
 void GameScene::Draw() {
@@ -106,4 +108,96 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void GameScene::CheckAllCollision()
+{
+	//判定対象AとBの座標
+	Vector3 posA, posB;
+
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+
+	//=========================
+	// 
+	// 自キャラと敵弾
+	// 
+    // ========================
+	
+	//自キャラの座標
+	posA = player_->GetWorldPosition();
+
+	for (EnemyBullet* bullet : enemyBullets) {
+		posB = bullet->GetWorldPosition();
+		//posAとposBの距離
+		float posC = (posB.x - posA.x) * (posB.x - posA.x) +
+			(posB.y - posA.y) * (posB.y - posA.y) +
+			(posB.z - posA.z) * (posB.z - posA.z);
+	
+		//半径の差
+		float L = (player_->GetRadius() + bullet->GetRadius()) * (player_->GetRadius() + bullet->GetRadius());
+		//球と球の交差判定
+		if (posC<=L) {
+			//自キャラの衝突時コールバックを呼び出す
+			player_->OnCollision();
+			//敵弾の衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+	}
+
+	//===========================
+	//
+	//自弾と敵キャラ
+	//
+	//============================
+	
+	//敵キャラの座標
+	posA = enemy_->GetWorldPosition();
+
+	for (PlayerBullet* bullet : playerBullets) {
+		posB = bullet->GetWorldPosition();
+		//posAとposBの距離
+		float posD = (posB.x - posA.x) * (posB.x - posA.x) +
+			(posB.y - posA.y) * (posB.y - posA.y) +
+			(posB.z - posA.z) * (posB.z - posA.z);
+
+		//半径の差
+		float M = (enemy_->GetRadius() + bullet->GetRadius()) * (enemy_->GetRadius() + bullet->GetRadius());
+		//球と球の交差判定
+		if (posD <= M) {
+			//自キャラの衝突時コールバックを呼び出す
+			enemy_->OnCollision();
+			//敵弾の衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+	}
+
+
+	//===========================
+	//
+	//自弾と敵弾
+	//
+	//============================
+
+	for (PlayerBullet* playerBullet : playerBullets) {
+		for (EnemyBullet* enemyBullet : enemyBullets) {
+			posA = playerBullet->GetWorldPosition();
+			posB = enemyBullet->GetWorldPosition();
+			//posAとposBの距離
+			float posC = (posB.x - posA.x) * (posB.x - posA.x) +
+				(posB.y - posA.y) * (posB.y - posA.y) +
+				(posB.z - posA.z) * (posB.z - posA.z);
+
+			//半径の差
+			float L = (playerBullet->GetRadius() + enemyBullet->GetRadius()) * (playerBullet->GetRadius() + enemyBullet->GetRadius());
+			//球と球の交差判定
+			if (posC <= L) {
+				//自キャラの衝突時コールバックを呼び出す
+				playerBullet->OnCollision();
+				//敵弾の衝突時コールバックを呼び出す
+				enemyBullet->OnCollision();
+			}
+
+		}
+	}
 }

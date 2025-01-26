@@ -16,7 +16,10 @@ class EnemyBullet
 		void Update();
 		void Draw(const KamataEngine::Camera& camera);
 		bool IsDead()const { return isDead_; }
-
+		void OnCollision();
+		//ワールド座標を取得
+		KamataEngine::Vector3 GetWorldPosition();
+		float GetRadius() { return radius_; }
 	private:
 		KamataEngine::Camera* viewProjection_ = nullptr;
 		KamataEngine::Model* model_ = nullptr;
@@ -30,7 +33,7 @@ class EnemyBullet
 		int32_t deathTimer_ = kLifeTime;
 		//デスフラグ
 		bool isDead_ = false;
-
+		float radius_ = 1.0f;
 
 
 };

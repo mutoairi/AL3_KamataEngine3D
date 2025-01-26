@@ -31,3 +31,19 @@ void EnemyBullet::Draw(const KamataEngine::Camera& camera)
 {
 	model_->Draw(worldTransform_, camera, texture_);
 }
+
+void EnemyBullet::OnCollision()
+{
+	isDead_ = true;
+}
+
+KamataEngine::Vector3 EnemyBullet::GetWorldPosition()
+{
+	//ワールド座標を入れる変数
+	KamataEngine::Vector3 worldPos;
+	//ワールド座標を取得
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos;
+}

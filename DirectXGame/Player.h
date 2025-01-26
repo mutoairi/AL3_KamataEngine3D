@@ -16,8 +16,11 @@ public:
 	void Rotate();
 	void Attack();
 	void Move();
+	void OnCollision();
 	//ワールド座標を取得
 	KamataEngine::Vector3 GetWorldPosition();
+	const std::list<PlayerBullet*>& GetBullets()const { return bullets_; }
+	float GetRadius() { return radius_; }
 
 private:
 
@@ -27,5 +30,5 @@ private:
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::ObjectColor objColor = {};
 	std::list<PlayerBullet* >bullets_;
-	
+	float radius_ = 1.0f;
 };

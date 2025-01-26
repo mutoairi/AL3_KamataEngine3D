@@ -128,6 +128,10 @@ void Player::Move()
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 }
 
+void Player::OnCollision()
+{
+}
+
 KamataEngine::Vector3 Player::GetWorldPosition()
 {
 	//ワールド座標を入れる変数

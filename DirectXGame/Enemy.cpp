@@ -135,3 +135,18 @@ void Enemy::ApproachInitialize()
 	//発射タイマー初期化
 	shotTimer_ = kFireInterval;
 }
+
+void Enemy::OnCollision()
+{
+}
+
+KamataEngine::Vector3 Enemy::GetWorldPosition()
+{
+	//ワールド座標を入れる変数
+	KamataEngine::Vector3 worldPos;
+	//ワールド座標を取得
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos;
+}

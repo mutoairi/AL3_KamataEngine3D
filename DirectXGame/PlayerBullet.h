@@ -14,6 +14,10 @@ public:
 	void Update();
 	void Draw(const KamataEngine::Camera& camera);
 	bool IsDead()const { return isDead_; }
+	void OnCollision();
+	//ワールド座標を取得
+	KamataEngine::Vector3 GetWorldPosition();
+	float GetRadius() { return radius_; }
 
 private:
 	KamataEngine::Camera* viewProjection_ = nullptr;
@@ -27,5 +31,7 @@ private:
 	int32_t deathTimer_ = kLifeTime;
 	//デスフラグ
 	bool isDead_ = false;
+	//半径
+	float radius_ = 1.0f;
 };
 

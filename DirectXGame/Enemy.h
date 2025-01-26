@@ -26,8 +26,14 @@ public:
 	void Fire();
 	void ApproachInitialize();
 	void SetPlayer(Player* player) { player_ = player; }
+	void OnCollision();
+	const std::list<EnemyBullet*>& GetBullets()const { return bullets_; }
+	//ワールド座標を取得
+	KamataEngine::Vector3 GetWorldPosition();
+	float GetRadius() { return radius_; }
 	//発射間隔
 	static const int kFireInterval = 60;
+
 
 private:
 
@@ -44,5 +50,6 @@ private:
 	int32_t shotTimer_ = 0;
 	//自キャラ
 	Player* player_ = nullptr;
+	float radius_ = 1.0f;
 };
 

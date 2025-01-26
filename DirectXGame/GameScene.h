@@ -24,6 +24,9 @@ public:
 
 	void Draw();
 
+	//衝突判定と応答
+	void CheckAllCollision();
+
 private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;

@@ -6,8 +6,10 @@
 GameScene::GameScene() {};
 GameScene::~GameScene() {
 	delete model_;
+	delete modelSkyDome_;
 	delete player_;
 	delete debugCamera_;
+	delete skyDome_;
 };
 
 
@@ -17,6 +19,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	//texture = TextureManager::Load("white1x1.png");
 	model_ = Model::CreateFromOBJ("block", true);
+	modelSkyDome_ = Model::CreateFromOBJ("sphere", true);
 	viewProjection_.Initialize();
 	worldTransform_.Initialize();
 	// 自キャラの生成
@@ -27,6 +30,10 @@ void GameScene::Initialize() {
 	enemy_->Initialize(model_, &viewProjection_);
 	/*敵キャラに自キャラのアドレスを渡す*/
 	enemy_->SetPlayer(player_);
+	//天球の生成
+	skyDome_ = new Skydome();
+	skyDome_->Initialize(modelSkyDome_, &viewProjection_);
+
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
@@ -59,9 +66,17 @@ void GameScene::Update() {
 		viewProjection_.UpdateMatrix();
 	}
 	CheckAllCollision();
+	//========プレイヤー===============
+
 	player_->Update();
+
+	//========エネミー =================
+
 	enemy_->Update();
 	
+	//========  天球　==================
+
+	skyDome_->Update();
 };
 
 void GameScene::Draw() {
@@ -88,6 +103,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// 
+	skyDome_->Draw();
 	player_->Draw();
 	enemy_->Draw();
 	/// </summary>

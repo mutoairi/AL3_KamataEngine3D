@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include"Enemy.h"
+#include"Skydome.h"
 
 using namespace KamataEngine;
 
@@ -41,6 +42,8 @@ private:
 	Player* player_ = nullptr;
 	Model* model_ = nullptr;
 	Enemy* enemy_ = nullptr;
+	Skydome* skyDome_ = nullptr;
+	Model* modelSkyDome_ = nullptr;
 	WorldTransform worldTransform_;
 	Camera viewProjection_;
 	// uint32_t texture = 0;

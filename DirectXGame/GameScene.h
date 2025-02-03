@@ -4,6 +4,7 @@
 #include "Player.h"
 #include"Enemy.h"
 #include"Skydome.h"
+#include"RailCamera.h"
 
 using namespace KamataEngine;
 
@@ -46,7 +47,9 @@ private:
 	Model* modelSkyDome_ = nullptr;
 	WorldTransform worldTransform_;
 	Camera viewProjection_;
+	RailCamera* railCamera = nullptr;
 	// uint32_t texture = 0;
-
+	Vector3 railPos = { 0.0f,0.0f,-100.0f };
+	Vector3 railRot = { 0.0f,0.0f,0.0f };
 
 };

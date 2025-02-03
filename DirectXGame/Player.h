@@ -19,6 +19,7 @@ public:
 	void OnCollision();
 	//ワールド座標を取得
 	KamataEngine::Vector3 GetWorldPosition();
+	KamataEngine::Vector3 GetWorldRotate();
 	const std::list<PlayerBullet*>& GetBullets()const { return bullets_; }
 	float GetRadius() { return radius_; }
 

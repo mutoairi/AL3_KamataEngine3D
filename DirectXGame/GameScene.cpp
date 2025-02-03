@@ -37,6 +37,11 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
+	//レールカメラの生成
+	railCamera = new RailCamera();
+	railCamera->Initialize(railPos,railRot,&viewProjection_);
+
+
 	//軸方向の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetCamera(&viewProjection_);
@@ -66,6 +71,8 @@ void GameScene::Update() {
 		viewProjection_.UpdateMatrix();
 	}
 	CheckAllCollision();
+	
+	
 	//========プレイヤー===============
 
 	player_->Update();
@@ -77,6 +84,10 @@ void GameScene::Update() {
 	//========  天球　==================
 
 	skyDome_->Update();
+
+	//========レールカメラ=============
+
+	railCamera->Update();
 };
 
 void GameScene::Draw() {

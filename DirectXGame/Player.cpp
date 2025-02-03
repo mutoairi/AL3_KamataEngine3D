@@ -142,3 +142,8 @@ KamataEngine::Vector3 Player::GetWorldPosition()
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 	return worldPos;
 }
+
+KamataEngine::Vector3 Player::GetWorldRotate()
+{
+	return worldTransform_.rotation_;
+}

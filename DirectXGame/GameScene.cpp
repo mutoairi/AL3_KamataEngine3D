@@ -68,7 +68,13 @@ void GameScene::Update() {
 	}
 	else {
 		//ビュープロジェクション行列の更新と転送	
+		viewProjection_.translation_ = railCamera->GetWorldPosition();
+		viewProjection_.rotation_ = railCamera->GetWorldRotate();
 		viewProjection_.UpdateMatrix();
+		
+
+		
+
 	}
 	CheckAllCollision();
 	
@@ -88,6 +94,7 @@ void GameScene::Update() {
 	//========レールカメラ=============
 
 	railCamera->Update();
+	
 };
 
 void GameScene::Draw() {

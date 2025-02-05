@@ -10,11 +10,13 @@ class RailCamera
 {
 public:
 	void Initialize(KamataEngine::Vector3 position, KamataEngine::Vector3 rotation,KamataEngine::Camera*view);
+	KamataEngine::Vector3 GetWorldPosition();
+	KamataEngine::Vector3 GetWorldRotate();
 	void Update();
 private:
 	KamataEngine::Camera* viewProjection_ = nullptr;
 	KamataEngine::WorldTransform worldTransform_;
 	// 速度
-	KamataEngine::Vector3 velocity_ = { 0.0f, 0.0f, 0.01f };
+	KamataEngine::Vector3 velocity_ = { 0.0f, 0.0f,-0.1f };
 };
 

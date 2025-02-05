@@ -14,6 +14,7 @@ enum class Phase {
 	Leave,//離脱する
 };
 class Player;
+class GameScene;
 class Enemy
 {
 public:
@@ -26,11 +27,15 @@ public:
 	void Fire();
 	void ApproachInitialize();
 	void SetPlayer(Player* player) { player_ = player; }
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
+
 	void OnCollision();
 	const std::list<EnemyBullet*>& GetBullets()const { return bullets_; }
 	//ワールド座標を取得
 	KamataEngine::Vector3 GetWorldPosition();
 	float GetRadius() { return radius_; }
+
+
 	//発射間隔
 	static const int kFireInterval = 60;
 
@@ -51,5 +56,7 @@ private:
 	//自キャラ
 	Player* player_ = nullptr;
 	float radius_ = 1.0f;
+
+	GameScene* gameScene_ = nullptr;
 };
 

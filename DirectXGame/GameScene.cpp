@@ -28,6 +28,7 @@ void GameScene::Initialize() {
 	//敵の生成
 	enemy_ = new Enemy();
 	enemy_->Initialize(model_, &viewProjection_);
+	enemy_->SetGameScene(this);
 	/*敵キャラに自キャラのアドレスを渡す*/
 	enemy_->SetPlayer(player_);
 	//天球の生成
@@ -235,4 +236,9 @@ void GameScene::CheckAllCollision()
 
 		}
 	}
+}
+
+void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet)
+{
+	bullets_.push_back(enemyBullet);
 }

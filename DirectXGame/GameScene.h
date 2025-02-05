@@ -1,10 +1,11 @@
 #pragma once
 #include <KamataEngine.h>
-
+#include<list>
 #include "Player.h"
 #include"Enemy.h"
 #include"Skydome.h"
 #include"RailCamera.h"
+#include"EnemyBullet.h"
 
 using namespace KamataEngine;
 
@@ -29,6 +30,8 @@ public:
 	//衝突判定と応答
 	void CheckAllCollision();
 
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
 private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -51,5 +54,5 @@ private:
 	// uint32_t texture = 0;
 	Vector3 railPos = { 0.0f,0.0f,-50.0f };
 	Vector3 railRot = { 0.0f,0.0f,0.0f };
-
+	std::list<EnemyBullet* >bullets_;
 };

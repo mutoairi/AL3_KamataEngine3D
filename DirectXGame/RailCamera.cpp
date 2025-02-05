@@ -30,6 +30,8 @@ KamataEngine::Vector3 RailCamera::GetWorldRotate()
 	return worldTransform_.rotation_;
 }
 
+
+
 void RailCamera::Update()
 {
 	worldTransform_.translation_ = worldTransform_.translation_ + velocity_;

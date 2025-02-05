@@ -16,6 +16,7 @@ void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewPr
 	viewProjection_ = viewProjection;
 
 	worldTransform_.Initialize();
+	worldTransform_.translation_ = { 0.0f,0.0f,50.0f };
 	//シングルトンインスタンスを取得する
 	input_ = KamataEngine::Input::GetInstance();
 
@@ -146,4 +147,10 @@ KamataEngine::Vector3 Player::GetWorldPosition()
 KamataEngine::Vector3 Player::GetWorldRotate()
 {
 	return worldTransform_.rotation_;
+}
+
+void Player::SetParent(const KamataEngine::WorldTransform* parent)
+{
+	//親子関係を結ぶ
+	worldTransform_.parent_ = parent;
 }

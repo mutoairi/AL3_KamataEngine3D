@@ -40,7 +40,8 @@ void GameScene::Initialize() {
 	//レールカメラの生成
 	railCamera = new RailCamera();
 	railCamera->Initialize(railPos,railRot,&viewProjection_);
-
+	//自キャラとレールカメラの親子関係を結ぶ
+	player_->SetParent(&railCamera->GetWorldTransform());
 
 	//軸方向の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);

@@ -22,6 +22,7 @@ public:
 	KamataEngine::Vector3 GetWorldRotate();
 	const std::list<PlayerBullet*>& GetBullets()const { return bullets_; }
 	float GetRadius() { return radius_; }
+	void SetParent(const KamataEngine::WorldTransform* parent);
 
 private:
 

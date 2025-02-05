@@ -23,7 +23,7 @@ const KamataEngine::Vector3 operator*(float s, const KamataEngine::Vector3& v);
 const KamataEngine::Vector3 operator/(const KamataEngine::Vector3& v, float s);
 
 // 行列の掛け算
-KamataEngine::Matrix4x4 MatrixMultiply(KamataEngine::Matrix4x4& m1, KamataEngine::Matrix4x4& m2);
+KamataEngine::Matrix4x4 MatrixMultiply(KamataEngine::Matrix4x4 m1, KamataEngine::Matrix4x4 m2);
 KamataEngine::Matrix4x4 MakeRotateZMatrix(float& rot);
 KamataEngine::Vector3 Transform(const KamataEngine::Vector3& vector, const KamataEngine::Matrix4x4& matrix);
 

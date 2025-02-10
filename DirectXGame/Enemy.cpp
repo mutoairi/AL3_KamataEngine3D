@@ -3,6 +3,7 @@
 #include"myMath.h"
 #include"Player.h"
 #include"GameScene.h"
+#include<cassert>
 
 
 Enemy::~Enemy()

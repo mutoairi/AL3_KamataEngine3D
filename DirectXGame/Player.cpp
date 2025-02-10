@@ -45,12 +45,12 @@ void Player::Update() {
 	}
 	worldTransform_.UpdateMatrix();
 
-
+#ifdef _DEBUG
 	//キャラクターの座標を画面表示する処理
 	ImGui::Begin("Window");
 	ImGui::DragFloat3("Player", &worldTransform_.translation_.x, 0.1f);
 	ImGui::End();
-
+#endif
 
 };
 

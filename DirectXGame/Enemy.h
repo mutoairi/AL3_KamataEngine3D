@@ -19,7 +19,7 @@ class Enemy
 {
 public:
 	~Enemy();
-	void Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewProjection);
+	void Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewProjection,KamataEngine::Vector3 position);
 	void Update();
 	void Draw();
 	void Approach();
@@ -28,9 +28,8 @@ public:
 	void ApproachInitialize();
 	void SetPlayer(Player* player) { player_ = player; }
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
-
+	bool IsDead()const { return isDead; }
 	void OnCollision();
-	const std::list<EnemyBullet*>& GetBullets()const { return bullets_; }
 	//ワールド座標を取得
 	KamataEngine::Vector3 GetWorldPosition();
 	float GetRadius() { return radius_; }
@@ -50,13 +49,13 @@ private:
 	uint32_t texture_ = 0u;
 	//フェーズ
 	Phase phase_;
-	std::list<EnemyBullet* >bullets_ ;
+	
 	//発射タイマー
 	int32_t shotTimer_ = 0;
 	//自キャラ
 	Player* player_ = nullptr;
 	float radius_ = 1.0f;
-
+	bool isDead = false;
 	GameScene* gameScene_ = nullptr;
 };
 

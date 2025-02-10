@@ -1,6 +1,7 @@
 #pragma once
 #include <KamataEngine.h>
 #include<list>
+#include<sstream>
 #include "Player.h"
 #include"Enemy.h"
 #include"Skydome.h"
@@ -32,6 +33,11 @@ public:
 
 	void AddEnemyBullet(EnemyBullet* enemyBullet);
 
+	void LoadEnemyPopData();
+
+	void UpdateEnemyCommands();
+
+	void EnemyPop(Vector3);
 private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -45,7 +51,7 @@ private:
 	//ゲームシーン用メンバ変数
 	Player* player_ = nullptr;
 	Model* model_ = nullptr;
-	Enemy* enemy_ = nullptr;
+	//Enemy* enemy_ = nullptr;
 	Skydome* skyDome_ = nullptr;
 	Model* modelSkyDome_ = nullptr;
 	WorldTransform worldTransform_;
@@ -55,4 +61,10 @@ private:
 	Vector3 railPos = { 0.0f,0.0f,-50.0f };
 	Vector3 railRot = { 0.0f,0.0f,0.0f };
 	std::list<EnemyBullet* >bullets_;
+	std::list<Enemy* >enemys_;
+
+	bool waitFlag = false;
+	int32_t waitTimer;
+	//敵発生コマンド
+	std::stringstream enemyPopCommands;
 };

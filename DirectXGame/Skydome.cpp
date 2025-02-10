@@ -16,7 +16,7 @@ void Skydome::Initialize(KamataEngine::Model* model, KamataEngine::Camera* viewP
 }
 
 void Skydome::Update() {
-
+	
 	// ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix();
 }
